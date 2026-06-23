@@ -1,0 +1,6 @@
+CompileFlags:
+  Compiler: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++
+  CompilationDatabase: Ancestors
+  Add:
+    - -std=c++17
+    - -I/Users/Makarshin/Antiplaga/mephi-labs-anti-plagiarism/back/include
