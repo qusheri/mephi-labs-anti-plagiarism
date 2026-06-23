@@ -59,7 +59,7 @@
       <div class="sidebar-card">
         <div class="sidebar-card-icon">i</div>
         <strong>Нужна помощь?</strong>
-        <p>Как подготовить отчёт к проверке</p>
+        <p>Как подготовить C++ проект к проверке</p>
         <button id="helpButton">Открыть инструкцию</button>
       </div>
 
@@ -98,7 +98,7 @@
             <div>
               <p class="eyebrow">Вторник, 23 июня</p>
               <h1>Добрый день, Кирилл!</h1>
-              <p>Здесь можно проверить лабораторную работу и посмотреть результаты прошлых проверок.</p>
+              <p>Здесь можно проверить исходный код C++ и посмотреть результаты прошлых проверок.</p>
             </div>
             <button class="primary-button" data-open-upload><span>＋</span> Новая проверка</button>
           </div>
@@ -140,7 +140,7 @@
                   <p class="eyebrow">Быстрый старт</p>
                   <h2>Проверить новую работу</h2>
                 </div>
-                <span class="tag">PDF · DOCX · ZIP</span>
+                <span class="tag">CPP · HPP · ZIP</span>
               </div>
               <button class="drop-zone" id="dashboardDropZone" data-open-upload>
                 <span class="upload-illustration">
@@ -149,14 +149,14 @@
                     <path d="M43 54V29m0 0-9 9m9-9 9 9"></path>
                   </svg>
                 </span>
-                <strong>Перетащите отчёт сюда</strong>
-                <span>или нажмите, чтобы выбрать файл</span>
-                <small>Максимальный размер файла — 50 МБ</small>
+                <strong>Перетащите C++ проект сюда</strong>
+                <span>исходный файл или ZIP-архив проекта</span>
+                <small>Поддерживаются .cpp, .cc, .h, .hpp и .zip до 20 МБ</small>
               </button>
               <div class="check-features">
-                <span><i>✓</i> Проверка текста</span>
-                <span><i>✓</i> Сравнение кода</span>
-                <span><i>✓</i> Поиск общих графиков</span>
+                <span><i>✓</i> Анализ токенов</span>
+                <span><i>✓</i> Сравнение AST</span>
+                <span><i>✓</i> Нормализация имён</span>
               </div>
             </section>
 
@@ -200,21 +200,21 @@
                 <thead><tr><th>Работа</th><th>Дисциплина</th><th>Дата</th><th>Оригинальность</th><th>Статус</th><th></th></tr></thead>
                 <tbody>
                   <tr>
-                    <td><div class="file-cell"><span class="file-icon pdf">PDF</span><div><strong>Лабораторная работа №4</strong><small>lab_04_galkin.pdf · 2,4 МБ</small></div></div></td>
+                    <td><div class="file-cell"><span class="file-icon cpp">C++</span><div><strong>Лабораторная работа №4</strong><small>lab_04_galkin.cpp · 46 КБ</small></div></div></td>
                     <td>Семантические технологии</td><td>22 июня, 18:42</td>
                     <td><div class="score-cell"><strong class="score-high">94%</strong><span><i style="width:94%"></i></span></div></td>
                     <td><span class="status success">Проверено</span></td>
                     <td><button class="row-button" data-report="94">Открыть</button></td>
                   </tr>
                   <tr>
-                    <td><div class="file-cell"><span class="file-icon doc">DOC</span><div><strong>Отчёт по лабораторной №3</strong><small>report_final.docx · 1,8 МБ</small></div></div></td>
+                    <td><div class="file-cell"><span class="file-icon header">HPP</span><div><strong>Шаблонный контейнер</strong><small>container.hpp · 18 КБ</small></div></div></td>
                     <td>Обработка данных</td><td>18 июня, 12:10</td>
                     <td><div class="score-cell"><strong class="score-medium">78%</strong><span><i style="width:78%"></i></span></div></td>
                     <td><span class="status success">Проверено</span></td>
                     <td><button class="row-button" data-report="78">Открыть</button></td>
                   </tr>
                   <tr>
-                    <td><div class="file-cell"><span class="file-icon zip">ZIP</span><div><strong>Алгоритмы кластеризации</strong><small>cluster_lab.zip · 8,1 МБ</small></div></div></td>
+                    <td><div class="file-cell"><span class="file-icon zip">ZIP</span><div><strong>Алгоритмы кластеризации</strong><small>cluster_lab_cpp.zip · 1,2 МБ</small></div></div></td>
                     <td>Машинное обучение</td><td>15 июня, 21:03</td>
                     <td><div class="score-cell"><strong class="score-low">61%</strong><span><i style="width:61%"></i></span></div></td>
                     <td><span class="status warning">Есть замечания</span></td>
@@ -228,7 +228,7 @@
 
         <section class="page view" id="submissions" data-title="Мои проверки">
           <div class="page-header">
-            <div><p class="eyebrow">Архив работ</p><h1>Мои проверки</h1><p>Все загруженные отчёты и результаты анализа.</p></div>
+            <div><p class="eyebrow">Архив работ</p><h1>Мои проверки</h1><p>Все загруженные C++ проекты и результаты анализа кода.</p></div>
             <button class="primary-button" data-open-upload><span>＋</span> Новая проверка</button>
           </div>
           <section class="panel filters-panel">
@@ -238,16 +238,16 @@
           </section>
           <section class="submission-list" id="submissionList">
             <article class="submission-card" data-status="checked" data-search="лабораторная работа 4 семантические технологии">
-              <div class="file-icon pdf">PDF</div><div class="submission-info"><strong>Лабораторная работа №4</strong><span>Семантические технологии · 22 июня, 18:42</span></div><div class="submission-score score-high">94%</div><span class="status success">Проверено</span><button class="row-button" data-report="94">Отчёт</button>
+              <div class="file-icon cpp">C++</div><div class="submission-info"><strong>Лабораторная работа №4</strong><span>Семантические технологии · 22 июня, 18:42</span></div><div class="submission-score score-high">94%</div><span class="status success">Проверено</span><button class="row-button" data-report="94">Отчёт</button>
             </article>
-            <article class="submission-card" data-status="checked" data-search="отчёт лабораторная 3 обработка данных">
-              <div class="file-icon doc">DOC</div><div class="submission-info"><strong>Отчёт по лабораторной №3</strong><span>Обработка данных · 18 июня, 12:10</span></div><div class="submission-score score-medium">78%</div><span class="status success">Проверено</span><button class="row-button" data-report="78">Отчёт</button>
+            <article class="submission-card" data-status="checked" data-search="шаблонный контейнер лабораторная 3 обработка данных">
+              <div class="file-icon header">HPP</div><div class="submission-info"><strong>Шаблонный контейнер</strong><span>Обработка данных · 18 июня, 12:10</span></div><div class="submission-score score-medium">78%</div><span class="status success">Проверено</span><button class="row-button" data-report="78">Отчёт</button>
             </article>
             <article class="submission-card" data-status="warning" data-search="алгоритмы кластеризации машинное обучение">
               <div class="file-icon zip">ZIP</div><div class="submission-info"><strong>Алгоритмы кластеризации</strong><span>Машинное обучение · 15 июня, 21:03</span></div><div class="submission-score score-low">61%</div><span class="status warning">Замечания</span><button class="row-button" data-report="61">Отчёт</button>
             </article>
             <article class="submission-card" data-status="checked" data-search="лабораторная работа 2 базы данных">
-              <div class="file-icon pdf">PDF</div><div class="submission-info"><strong>Лабораторная работа №2</strong><span>Базы данных · 9 июня, 14:27</span></div><div class="submission-score score-high">91%</div><span class="status success">Проверено</span><button class="row-button" data-report="91">Отчёт</button>
+              <div class="file-icon cpp">C++</div><div class="submission-info"><strong>Лабораторная работа №2</strong><span>Базы данных · 9 июня, 14:27</span></div><div class="submission-score score-high">91%</div><span class="status success">Проверено</span><button class="row-button" data-report="91">Отчёт</button>
             </article>
           </section>
           <p class="empty-state" id="emptyState">По вашему запросу ничего не найдено</p>
@@ -266,7 +266,7 @@
           <div class="placeholder-icon">⌁</div><h1>Аналитика</h1><p>Сводная статистика появится после завершения текущего семестра.</p><button class="secondary-button" data-view-link="dashboard">Вернуться на главную</button>
         </section>
         <section class="page view placeholder-view" id="knowledge" data-title="База знаний">
-          <div class="placeholder-icon">?</div><h1>База знаний</h1><p>Рекомендации по оформлению отчётов и интерпретации результатов проверки.</p><button class="secondary-button" id="knowledgeHelpButton">Открыть памятку</button>
+          <div class="placeholder-icon">?</div><h1>База знаний</h1><p>Рекомендации по подготовке C++ проектов и интерпретации совпадений.</p><button class="secondary-button" id="knowledgeHelpButton">Открыть памятку</button>
         </section>
         <section class="page view placeholder-view" id="settings" data-title="Настройки">
           <div class="placeholder-icon">⚙</div><h1>Настройки</h1><p>Параметры профиля, уведомлений и отображения системы.</p><button class="secondary-button">Управление профилем</button>
@@ -283,10 +283,10 @@
         <label>Дисциплина<select required><option value="">Выберите дисциплину</option><option>Семантические технологии</option><option>Машинное обучение</option><option>Базы данных</option></select></label>
         <label>Название работы<input type="text" value="Лабораторная работа №5" required></label>
         <label class="modal-drop-zone" id="modalDropZone">
-          <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.zip">
-          <span class="upload-circle">↑</span>
-          <strong id="fileName">Выберите файл или перетащите его сюда</strong>
-          <span>PDF, DOCX или ZIP, не более 50 МБ</span>
+          <input type="file" id="fileInput" accept=".cpp,.cc,.cxx,.h,.hpp,.zip">
+          <span class="upload-circle">&lt;/&gt;</span>
+          <strong id="fileName">Выберите исходный файл или архив проекта</strong>
+          <span>CPP, H, HPP или ZIP, не более 20 МБ</span>
         </label>
         <label class="checkbox"><input type="checkbox" checked><span>Сравнить с работами студентов моей группы</span></label>
         <div class="modal-actions"><button type="button" class="secondary-button" data-close-modal>Отмена</button><button type="submit" class="primary-button" id="startCheckButton">Начать проверку</button></div>
@@ -297,9 +297,9 @@
   <div class="modal-backdrop" id="progressModal" role="dialog" aria-modal="true" aria-labelledby="progressTitle">
     <div class="modal progress-modal-card">
       <div class="scan-animation"><span></span><i></i></div>
-      <p class="eyebrow">Анализ документа</p>
-      <h2 id="progressTitle">Проверяем лабораторную работу</h2>
-      <p id="progressText">Извлекаем текст и программный код…</p>
+      <p class="eyebrow">Анализ исходного кода</p>
+      <h2 id="progressTitle">Проверяем C++ проект</h2>
+      <p id="progressText">Разбираем файлы и строим дерево синтаксиса…</p>
       <div class="scan-progress"><i id="scanProgress"></i></div>
       <strong id="scanPercent">0%</strong>
     </div>
@@ -308,18 +308,18 @@
   <div class="modal-backdrop" id="reportModal" role="dialog" aria-modal="true" aria-labelledby="reportTitle">
     <div class="modal report-modal-card">
       <button class="modal-close" data-close-modal aria-label="Закрыть">×</button>
-      <div class="report-header"><div><p class="eyebrow">Результат проверки</p><h2 id="reportTitle">Лабораторная работа №4</h2><span>Семантические технологии · PDF, 2,4 МБ</span></div><div class="progress-ring" id="reportRing" style="--progress:94"><strong id="reportScore">94%</strong><span>оригинальность</span></div></div>
+      <div class="report-header"><div><p class="eyebrow">Результат проверки</p><h2 id="reportTitle">Лабораторная работа №4</h2><span>Семантические технологии · C++17, 6 файлов</span></div><div class="progress-ring" id="reportRing" style="--progress:94"><strong id="reportScore">94%</strong><span>оригинальность</span></div></div>
       <div class="report-metrics">
-        <div><span class="metric-dot teal-dot"></span><p>Оригинальный текст<strong id="originalMetric">94%</strong></p></div>
-        <div><span class="metric-dot pink-dot"></span><p>Совпадения<strong id="matchMetric">6%</strong></p></div>
-        <div><span class="metric-dot blue-dot"></span><p>Источников найдено<strong id="sourceMetric">3</strong></p></div>
+        <div><span class="metric-dot teal-dot"></span><p>Оригинальный код<strong id="originalMetric">94%</strong></p></div>
+        <div><span class="metric-dot pink-dot"></span><p>Сходство структуры<strong id="matchMetric">6%</strong></p></div>
+        <div><span class="metric-dot blue-dot"></span><p>Похожих решений<strong id="sourceMetric">3</strong></p></div>
       </div>
       <div class="report-alert" id="reportAlert"><span>✓</span><div><strong>Работа прошла проверку</strong><p>Уровень оригинальности соответствует требованиям дисциплины.</p></div></div>
       <div class="matches-heading"><h3>Основные совпадения</h3><span>по степени совпадения</span></div>
       <div class="match-list">
-        <div><span class="source-number">01</span><div><strong>Методические материалы кафедры</strong><small>vector.mephi.ru/materials/semantic-lab</small></div><b>3,1%</b></div>
-        <div><span class="source-number">02</span><div><strong>Работа студента из группы Б23-504</strong><small>Внутренняя база лабораторных работ</small></div><b>1,8%</b></div>
-        <div><span class="source-number">03</span><div><strong>Научная электронная библиотека</strong><small>elibrary.ru/item.asp?id=...</small></div><b>1,1%</b></div>
+        <div><span class="source-number">01</span><div><strong>Совпадение структуры функции</strong><small>Нормализованный AST · строки 42–67</small></div><b>3,1%</b></div>
+        <div><span class="source-number">02</span><div><strong>Решение студента из группы Б23-504</strong><small>Внутренняя база исходного кода</small></div><b>1,8%</b></div>
+        <div><span class="source-number">03</span><div><strong>Открытый репозиторий GitHub</strong><small>Похожий алгоритм после нормализации идентификаторов</small></div><b>1,1%</b></div>
       </div>
       <div class="modal-actions"><button class="secondary-button" data-close-modal>Закрыть</button><button class="primary-button" id="downloadReport">↓ Скачать отчёт</button></div>
     </div>
@@ -328,8 +328,8 @@
   <div class="modal-backdrop" id="helpModal" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
     <div class="modal help-modal-card">
       <button class="modal-close" data-close-modal aria-label="Закрыть">×</button>
-      <p class="eyebrow">Краткая памятка</p><h2 id="helpTitle">Как подготовить работу</h2>
-      <ol><li><span>1</span><div><strong>Соберите материалы</strong><p>Отчёт загрузите в PDF или DOCX, исходный код — в ZIP.</p></div></li><li><span>2</span><div><strong>Проверьте оформление</strong><p>Укажите ФИО, группу, номер и название лабораторной работы.</p></div></li><li><span>3</span><div><strong>Изучите совпадения</strong><p>Корректные цитаты и формулировки задания не считаются нарушением.</p></div></li></ol>
+      <p class="eyebrow">Краткая памятка</p><h2 id="helpTitle">Как подготовить C++ проект</h2>
+      <ol><li><span>1</span><div><strong>Соберите исходники</strong><p>Загрузите отдельный .cpp/.hpp файл или весь проект в ZIP-архиве.</p></div></li><li><span>2</span><div><strong>Уберите артефакты сборки</strong><p>Не добавляйте папки build, .vs, исполняемые и объектные файлы.</p></div></li><li><span>3</span><div><strong>Изучите совпадения</strong><p>Система учитывает переименование переменных и сравнивает структуру алгоритма.</p></div></li></ol>
       <button class="primary-button full-width" data-close-modal>Понятно</button>
     </div>
   </div>

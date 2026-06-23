@@ -92,8 +92,8 @@ function runCheckAnimation() {
   const timer = setInterval(() => {
     value += Math.floor(Math.random() * 8) + 4;
     if (value >= 100) value = 100;
-    if (value > 35) text.textContent = 'Сравниваем с базой студенческих работ…';
-    if (value > 70) text.textContent = 'Формируем итоговый отчёт…';
+    if (value > 35) text.textContent = 'Нормализуем идентификаторы и сравниваем AST…';
+    if (value > 70) text.textContent = 'Ищем похожие решения и формируем отчёт…';
     bar.style.width = `${value}%`;
     percent.textContent = `${value}%`;
     if (value === 100) {
@@ -162,8 +162,8 @@ document.getElementById('downloadReport').addEventListener('click', () => {
     '',
     `Работа: ${title}`,
     `Оригинальность: ${score}`,
-    `Совпадения: ${document.getElementById('matchMetric').textContent}`,
-    `Найдено источников: ${document.getElementById('sourceMetric').textContent}`,
+    `Структурное сходство: ${document.getElementById('matchMetric').textContent}`,
+    `Найдено похожих решений: ${document.getElementById('sourceMetric').textContent}`,
     '',
     'Результат сформирован демонстрационной версией системы.'
   ].join('\n');
