@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ЛабКонтроль — система проверки лабораторных работ на заимствования">
+  <title>ЛабКонтроль — антиплагиат лабораторных работ</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 48 48" role="img">
+            <circle cx="24" cy="24" r="4"></circle>
+            <ellipse cx="24" cy="24" rx="21" ry="8"></ellipse>
+            <ellipse cx="24" cy="24" rx="21" ry="8" transform="rotate(60 24 24)"></ellipse>
+            <ellipse cx="24" cy="24" rx="21" ry="8" transform="rotate(120 24 24)"></ellipse>
+          </svg>
+        </div>
+        <div>
+          <strong>ЛабКонтроль</strong>
+          <span>НИЯУ МИФИ</span>
+        </div>
+      </div>
+
+      <nav class="main-nav" aria-label="Основная навигация">
+        <p class="nav-label">Рабочее пространство</p>
+        <button class="nav-item active" data-view="dashboard">
+          <span class="nav-icon">⌂</span>
+          <span>Главная</span>
+        </button>
+        <button class="nav-item" data-view="submissions">
+          <span class="nav-icon">▤</span>
+          <span>Мои проверки</span>
+          <span class="nav-count">8</span>
+        </button>
+        <button class="nav-item" data-view="courses">
+          <span class="nav-icon">▣</span>
+          <span>Дисциплины</span>
+        </button>
+        <button class="nav-item" data-view="analytics">
+          <span class="nav-icon">⌁</span>
+          <span>Аналитика</span>
+        </button>
+
+        <p class="nav-label nav-label-secondary">Система</p>
+        <button class="nav-item" data-view="knowledge">
+          <span class="nav-icon">?</span>
+          <span>База знаний</span>
+        </button>
+        <button class="nav-item" data-view="settings">
+          <span class="nav-icon">⚙</span>
+          <span>Настройки</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-card">
+        <div class="sidebar-card-icon">i</div>
+        <strong>Нужна помощь?</strong>
+        <p>Как подготовить отчёт к проверке</p>
+        <button id="helpButton">Открыть инструкцию</button>
+      </div>
+
+      <div class="sidebar-user">
+        <div class="avatar">КГ</div>
+        <div>
+          <strong>Кирилл Галкин</strong>
+          <span>Студент · Б23-504</span>
+        </div>
+        <button class="icon-button" aria-label="Меню пользователя">⋮</button>
+      </div>
+    </aside>
+
+    <div class="workspace">
+      <header class="topbar">
+        <button class="menu-button" id="menuButton" aria-label="Открыть меню">☰</button>
+        <div class="breadcrumbs">
+          <span>Учебный портал</span>
+          <b>/</b>
+          <strong id="breadcrumbCurrent">Главная</strong>
+        </div>
+        <div class="topbar-actions">
+          <button class="status-chip"><span></span> Система работает</button>
+          <button class="icon-button notification-button" aria-label="Уведомления">♢<span>3</span></button>
+          <button class="profile-button">
+            <div class="avatar avatar-small">КГ</div>
+            <span>Кирилл</span>
+            <span class="chevron">⌄</span>
+          </button>
+        </div>
+      </header>
+
+      <main>
+        <section class="page view active" id="dashboard" data-title="Главная">
+          <div class="welcome-row">
+            <div>
+              <p class="eyebrow">Вторник, 23 июня</p>
+              <h1>Добрый день, Кирилл!</h1>
+              <p>Здесь можно проверить лабораторную работу и посмотреть результаты прошлых проверок.</p>
+            </div>
+            <button class="primary-button" data-open-upload><span>＋</span> Новая проверка</button>
+          </div>
+
+          <div class="stats-grid">
+            <article class="stat-card">
+              <div class="stat-icon stat-icon-blue">▤</div>
+              <div>
+                <span>Всего проверок</span>
+                <strong>24</strong>
+                <small><b>+4</b> за этот месяц</small>
+              </div>
+              <div class="mini-chart bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            </article>
+            <article class="stat-card">
+              <div class="stat-icon stat-icon-green">✓</div>
+              <div>
+                <span>Средняя оригинальность</span>
+                <strong>87%</strong>
+                <small><b>+3,2%</b> к прошлому месяцу</small>
+              </div>
+              <div class="progress-ring small" style="--progress: 87"><span>87</span></div>
+            </article>
+            <article class="stat-card">
+              <div class="stat-icon stat-icon-pink">⌛</div>
+              <div>
+                <span>Ожидают проверки</span>
+                <strong>2</strong>
+                <small>Обычно до 2 минут</small>
+              </div>
+              <div class="pulse-dots" aria-hidden="true"><i></i><i></i><i></i></div>
+            </article>
+          </div>
+
+          <div class="dashboard-grid">
+            <section class="panel quick-check">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">Быстрый старт</p>
+                  <h2>Проверить новую работу</h2>
+                </div>
+                <span class="tag">PDF · DOCX · ZIP</span>
+              </div>
+              <button class="drop-zone" id="dashboardDropZone" data-open-upload>
+                <span class="upload-illustration">
+                  <svg viewBox="0 0 86 76" aria-hidden="true">
+                    <path d="M19 64h48a13 13 0 0 0 2-26 25 25 0 0 0-48-6 16 16 0 0 0-2 32Z"></path>
+                    <path d="M43 54V29m0 0-9 9m9-9 9 9"></path>
+                  </svg>
+                </span>
+                <strong>Перетащите отчёт сюда</strong>
+                <span>или нажмите, чтобы выбрать файл</span>
+                <small>Максимальный размер файла — 50 МБ</small>
+              </button>
+              <div class="check-features">
+                <span><i>✓</i> Проверка текста</span>
+                <span><i>✓</i> Сравнение кода</span>
+                <span><i>✓</i> Поиск общих графиков</span>
+              </div>
+            </section>
+
+            <section class="panel activity-panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">За 30 дней</p>
+                  <h2>Динамика оригинальности</h2>
+                </div>
+                <button class="more-button" aria-label="Дополнительные действия">•••</button>
+              </div>
+              <div class="chart-summary"><strong>87,4%</strong><span class="positive">↗ 4,8%</span></div>
+              <div class="line-chart" aria-label="График оригинальности за 30 дней">
+                <div class="chart-grid"><span>100%</span><span>75%</span><span>50%</span></div>
+                <svg viewBox="0 0 520 170" preserveAspectRatio="none" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="chartFill" x1="0" x2="0" y1="0" y2="1">
+                      <stop offset="0" stop-color="#00a6a6" stop-opacity=".28"></stop>
+                      <stop offset="1" stop-color="#00a6a6" stop-opacity="0"></stop>
+                    </linearGradient>
+                  </defs>
+                  <path class="area" d="M0 132 C55 130 55 109 105 113 S170 89 215 98 S285 75 325 80 S390 48 430 59 S485 31 520 34 V170 H0Z"></path>
+                  <path class="line" d="M0 132 C55 130 55 109 105 113 S170 89 215 98 S285 75 325 80 S390 48 430 59 S485 31 520 34"></path>
+                  <circle cx="520" cy="34" r="5"></circle>
+                </svg>
+                <div class="chart-labels"><span>1 июня</span><span>8 июня</span><span>15 июня</span><span>22 июня</span></div>
+              </div>
+            </section>
+          </div>
+
+          <section class="panel recent-panel">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">История</p>
+                <h2>Последние проверки</h2>
+              </div>
+              <button class="text-button" data-view-link="submissions">Смотреть все <span>→</span></button>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Работа</th><th>Дисциплина</th><th>Дата</th><th>Оригинальность</th><th>Статус</th><th></th></tr></thead>
+                <tbody>
+                  <tr>
+                    <td><div class="file-cell"><span class="file-icon pdf">PDF</span><div><strong>Лабораторная работа №4</strong><small>lab_04_galkin.pdf · 2,4 МБ</small></div></div></td>
+                    <td>Семантические технологии</td><td>22 июня, 18:42</td>
+                    <td><div class="score-cell"><strong class="score-high">94%</strong><span><i style="width:94%"></i></span></div></td>
+                    <td><span class="status success">Проверено</span></td>
+                    <td><button class="row-button" data-report="94">Открыть</button></td>
+                  </tr>
+                  <tr>
+                    <td><div class="file-cell"><span class="file-icon doc">DOC</span><div><strong>Отчёт по лабораторной №3</strong><small>report_final.docx · 1,8 МБ</small></div></div></td>
+                    <td>Обработка данных</td><td>18 июня, 12:10</td>
+                    <td><div class="score-cell"><strong class="score-medium">78%</strong><span><i style="width:78%"></i></span></div></td>
+                    <td><span class="status success">Проверено</span></td>
+                    <td><button class="row-button" data-report="78">Открыть</button></td>
+                  </tr>
+                  <tr>
+                    <td><div class="file-cell"><span class="file-icon zip">ZIP</span><div><strong>Алгоритмы кластеризации</strong><small>cluster_lab.zip · 8,1 МБ</small></div></div></td>
+                    <td>Машинное обучение</td><td>15 июня, 21:03</td>
+                    <td><div class="score-cell"><strong class="score-low">61%</strong><span><i style="width:61%"></i></span></div></td>
+                    <td><span class="status warning">Есть замечания</span></td>
+                    <td><button class="row-button" data-report="61">Открыть</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </section>
+
+        <section class="page view" id="submissions" data-title="Мои проверки">
+          <div class="page-header">
+            <div><p class="eyebrow">Архив работ</p><h1>Мои проверки</h1><p>Все загруженные отчёты и результаты анализа.</p></div>
+            <button class="primary-button" data-open-upload><span>＋</span> Новая проверка</button>
+          </div>
+          <section class="panel filters-panel">
+            <div class="search-box"><span>⌕</span><input type="search" id="submissionSearch" placeholder="Поиск по названию работы"></div>
+            <select id="statusFilter" aria-label="Фильтр по статусу"><option value="all">Все статусы</option><option value="checked">Проверено</option><option value="warning">Есть замечания</option></select>
+            <select aria-label="Фильтр по дисциплине"><option>Все дисциплины</option><option>Семантические технологии</option><option>Машинное обучение</option></select>
+          </section>
+          <section class="submission-list" id="submissionList">
+            <article class="submission-card" data-status="checked" data-search="лабораторная работа 4 семантические технологии">
+              <div class="file-icon pdf">PDF</div><div class="submission-info"><strong>Лабораторная работа №4</strong><span>Семантические технологии · 22 июня, 18:42</span></div><div class="submission-score score-high">94%</div><span class="status success">Проверено</span><button class="row-button" data-report="94">Отчёт</button>
+            </article>
+            <article class="submission-card" data-status="checked" data-search="отчёт лабораторная 3 обработка данных">
+              <div class="file-icon doc">DOC</div><div class="submission-info"><strong>Отчёт по лабораторной №3</strong><span>Обработка данных · 18 июня, 12:10</span></div><div class="submission-score score-medium">78%</div><span class="status success">Проверено</span><button class="row-button" data-report="78">Отчёт</button>
+            </article>
+            <article class="submission-card" data-status="warning" data-search="алгоритмы кластеризации машинное обучение">
+              <div class="file-icon zip">ZIP</div><div class="submission-info"><strong>Алгоритмы кластеризации</strong><span>Машинное обучение · 15 июня, 21:03</span></div><div class="submission-score score-low">61%</div><span class="status warning">Замечания</span><button class="row-button" data-report="61">Отчёт</button>
+            </article>
+            <article class="submission-card" data-status="checked" data-search="лабораторная работа 2 базы данных">
+              <div class="file-icon pdf">PDF</div><div class="submission-info"><strong>Лабораторная работа №2</strong><span>Базы данных · 9 июня, 14:27</span></div><div class="submission-score score-high">91%</div><span class="status success">Проверено</span><button class="row-button" data-report="91">Отчёт</button>
+            </article>
+          </section>
+          <p class="empty-state" id="emptyState">По вашему запросу ничего не найдено</p>
+        </section>
+
+        <section class="page view" id="courses" data-title="Дисциплины">
+          <div class="page-header"><div><p class="eyebrow">Весенний семестр 2025/2026</p><h1>Дисциплины</h1><p>Лабораторные работы и требования преподавателей.</p></div></div>
+          <div class="courses-grid">
+            <article class="course-card teal"><div class="course-code">СТ</div><span class="tag">5 работ</span><h3>Семантические технологии</h3><p>Паршутиин И. А.</p><div class="course-progress"><span><b>4</b> из 5 сдано</span><div><i style="width:80%"></i></div></div><button>Открыть дисциплину →</button></article>
+            <article class="course-card blue"><div class="course-code">МО</div><span class="tag">6 работ</span><h3>Машинное обучение</h3><p>Крылов С. В.</p><div class="course-progress"><span><b>3</b> из 6 сдано</span><div><i style="width:50%"></i></div></div><button>Открыть дисциплину →</button></article>
+            <article class="course-card pink"><div class="course-code">БД</div><span class="tag">4 работы</span><h3>Базы данных</h3><p>Морозова Е. Н.</p><div class="course-progress"><span><b>2</b> из 4 сдано</span><div><i style="width:50%"></i></div></div><button>Открыть дисциплину →</button></article>
+          </div>
+        </section>
+
+        <section class="page view placeholder-view" id="analytics" data-title="Аналитика">
+          <div class="placeholder-icon">⌁</div><h1>Аналитика</h1><p>Сводная статистика появится после завершения текущего семестра.</p><button class="secondary-button" data-view-link="dashboard">Вернуться на главную</button>
+        </section>
+        <section class="page view placeholder-view" id="knowledge" data-title="База знаний">
+          <div class="placeholder-icon">?</div><h1>База знаний</h1><p>Рекомендации по оформлению отчётов и интерпретации результатов проверки.</p><button class="secondary-button" id="knowledgeHelpButton">Открыть памятку</button>
+        </section>
+        <section class="page view placeholder-view" id="settings" data-title="Настройки">
+          <div class="placeholder-icon">⚙</div><h1>Настройки</h1><p>Параметры профиля, уведомлений и отображения системы.</p><button class="secondary-button">Управление профилем</button>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="uploadModal" role="dialog" aria-modal="true" aria-labelledby="uploadTitle">
+    <div class="modal upload-modal-card">
+      <button class="modal-close" data-close-modal aria-label="Закрыть">×</button>
+      <div class="modal-heading"><span class="modal-step">1</span><div><p class="eyebrow">Новая проверка</p><h2 id="uploadTitle">Загрузите лабораторную работу</h2></div></div>
+      <form id="uploadForm">
+        <label>Дисциплина<select required><option value="">Выберите дисциплину</option><option>Семантические технологии</option><option>Машинное обучение</option><option>Базы данных</option></select></label>
+        <label>Название работы<input type="text" value="Лабораторная работа №5" required></label>
+        <label class="modal-drop-zone" id="modalDropZone">
+          <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.zip">
+          <span class="upload-circle">↑</span>
+          <strong id="fileName">Выберите файл или перетащите его сюда</strong>
+          <span>PDF, DOCX или ZIP, не более 50 МБ</span>
+        </label>
+        <label class="checkbox"><input type="checkbox" checked><span>Сравнить с работами студентов моей группы</span></label>
+        <div class="modal-actions"><button type="button" class="secondary-button" data-close-modal>Отмена</button><button type="submit" class="primary-button" id="startCheckButton">Начать проверку</button></div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="progressModal" role="dialog" aria-modal="true" aria-labelledby="progressTitle">
+    <div class="modal progress-modal-card">
+      <div class="scan-animation"><span></span><i></i></div>
+      <p class="eyebrow">Анализ документа</p>
+      <h2 id="progressTitle">Проверяем лабораторную работу</h2>
+      <p id="progressText">Извлекаем текст и программный код…</p>
+      <div class="scan-progress"><i id="scanProgress"></i></div>
+      <strong id="scanPercent">0%</strong>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="reportModal" role="dialog" aria-modal="true" aria-labelledby="reportTitle">
+    <div class="modal report-modal-card">
+      <button class="modal-close" data-close-modal aria-label="Закрыть">×</button>
+      <div class="report-header"><div><p class="eyebrow">Результат проверки</p><h2 id="reportTitle">Лабораторная работа №4</h2><span>Семантические технологии · PDF, 2,4 МБ</span></div><div class="progress-ring" id="reportRing" style="--progress:94"><strong id="reportScore">94%</strong><span>оригинальность</span></div></div>
+      <div class="report-metrics">
+        <div><span class="metric-dot teal-dot"></span><p>Оригинальный текст<strong id="originalMetric">94%</strong></p></div>
+        <div><span class="metric-dot pink-dot"></span><p>Совпадения<strong id="matchMetric">6%</strong></p></div>
+        <div><span class="metric-dot blue-dot"></span><p>Источников найдено<strong id="sourceMetric">3</strong></p></div>
+      </div>
+      <div class="report-alert" id="reportAlert"><span>✓</span><div><strong>Работа прошла проверку</strong><p>Уровень оригинальности соответствует требованиям дисциплины.</p></div></div>
+      <div class="matches-heading"><h3>Основные совпадения</h3><span>по степени совпадения</span></div>
+      <div class="match-list">
+        <div><span class="source-number">01</span><div><strong>Методические материалы кафедры</strong><small>vector.mephi.ru/materials/semantic-lab</small></div><b>3,1%</b></div>
+        <div><span class="source-number">02</span><div><strong>Работа студента из группы Б23-504</strong><small>Внутренняя база лабораторных работ</small></div><b>1,8%</b></div>
+        <div><span class="source-number">03</span><div><strong>Научная электронная библиотека</strong><small>elibrary.ru/item.asp?id=...</small></div><b>1,1%</b></div>
+      </div>
+      <div class="modal-actions"><button class="secondary-button" data-close-modal>Закрыть</button><button class="primary-button" id="downloadReport">↓ Скачать отчёт</button></div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="helpModal" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
+    <div class="modal help-modal-card">
+      <button class="modal-close" data-close-modal aria-label="Закрыть">×</button>
+      <p class="eyebrow">Краткая памятка</p><h2 id="helpTitle">Как подготовить работу</h2>
+      <ol><li><span>1</span><div><strong>Соберите материалы</strong><p>Отчёт загрузите в PDF или DOCX, исходный код — в ZIP.</p></div></li><li><span>2</span><div><strong>Проверьте оформление</strong><p>Укажите ФИО, группу, номер и название лабораторной работы.</p></div></li><li><span>3</span><div><strong>Изучите совпадения</strong><p>Корректные цитаты и формулировки задания не считаются нарушением.</p></div></li></ol>
+      <button class="primary-button full-width" data-close-modal>Понятно</button>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"><span>✓</span><p>Отчёт подготовлен к скачиванию</p></div>
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+  <script src="script.js"></script>
+</body>
+</html>
