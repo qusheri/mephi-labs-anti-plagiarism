@@ -1,0 +1,74 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: antiplag-postgres
+    environment:
+      POSTGRES_DB: antiplag
+      POSTGRES_USER: antiplag
+      POSTGRES_PASSWORD: antiplag
+    ports:
+      - "55432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U antiplag -d antiplag"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  redis:
+    image: redis:7
+    container_name: antiplag-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  back-api:
+    build:
+      context: .
+      dockerfile: back/Dockerfile
+    container_name: antiplag-back-api
+    environment:
+      ANTIPLAG_DATABASE_URL: postgresql+psycopg://antiplag:antiplag@postgres:5432/antiplag
+      ANTIPLAG_REDIS_URL: redis://redis:6379/0
+      ANTIPLAG_AI_SERVICE_URL: http://host.docker.internal:8001
+      ANTIPLAG_UPLOADS_DIR: /app/storage/uploads
+    ports:
+      - "8000:8000"
+    volumes:
+      - storage_data:/app/storage
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  back-worker:
+    build:
+      context: .
+      dockerfile: back/Dockerfile
+    container_name: antiplag-back-worker
+    command: ["python", "-m", "back.worker.run_worker"]
+    environment:
+      ANTIPLAG_DATABASE_URL: postgresql+psycopg://antiplag:antiplag@postgres:5432/antiplag
+      ANTIPLAG_REDIS_URL: redis://redis:6379/0
+      ANTIPLAG_AI_SERVICE_URL: http://host.docker.internal:8001
+      ANTIPLAG_UPLOADS_DIR: /app/storage/uploads
+    volumes:
+      - storage_data:/app/storage
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
+  redis_data:
+  storage_data:

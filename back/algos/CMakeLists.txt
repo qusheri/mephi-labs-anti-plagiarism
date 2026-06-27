@@ -14,6 +14,11 @@ target_include_directories(antiplag_algos
 
 target_compile_features(antiplag_algos PUBLIC cxx_std_17)
 
+add_executable(antiplag_algos_cli
+    src/cli.cpp
+)
+target_link_libraries(antiplag_algos_cli PRIVATE antiplag_algos)
+
 option(ANTIPLAG_ALGOS_BUILD_TESTS "Build antiplag algorithm tests" ON)
 
 if(ANTIPLAG_ALGOS_BUILD_TESTS)

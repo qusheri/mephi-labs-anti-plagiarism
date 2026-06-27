@@ -75,11 +75,94 @@ fileInput.addEventListener('change', () => showSelectedFile(fileInput.files[0]))
 }));
 modalDropZone.addEventListener('drop', (event) => showSelectedFile(event.dataTransfer.files[0]));
 
-document.getElementById('uploadForm').addEventListener('submit', (event) => {
+document.getElementById('uploadForm').addEventListener('submit', async (event) => {
   event.preventDefault();
   openModal(progressModal);
-  runCheckAnimation();
+  await createBackendCheck(event.currentTarget);
 });
+
+async function createBackendCheck(form) {
+  const bar = document.getElementById('scanProgress');
+  const percent = document.getElementById('scanPercent');
+  const text = document.getElementById('progressText');
+  const titleInput = form.querySelector('input[type="text"]');
+  const courseSelect = form.querySelector('select');
+  const selectedFile = fileInput.files[0];
+
+  bar.style.width = '8%';
+  percent.textContent = '8%';
+
+  if (!selectedFile) {
+    text.textContent = 'Выберите файл для проверки.';
+    return;
+  }
+
+  try {
+    text.textContent = 'Загружаем работу и создаем задачу проверки...';
+    const created = await window.antiplagApi.createCheck({
+      title: titleInput.value,
+      course: courseSelect.value,
+      file: selectedFile,
+    });
+
+    bar.style.width = '25%';
+    percent.textContent = '25%';
+    text.textContent = `Задача ${created.task_id} создана. Ожидаем запуска проверки...`;
+    pollCheckStatus(created.task_id);
+  } catch (error) {
+    bar.style.width = '0%';
+    percent.textContent = '0%';
+    text.textContent = `Не удалось создать задачу: ${error.message}`;
+  }
+}
+
+function pollCheckStatus(taskId) {
+  const bar = document.getElementById('scanProgress');
+  const percent = document.getElementById('scanPercent');
+  const text = document.getElementById('progressText');
+
+  const timer = setInterval(async () => {
+    try {
+      const task = await window.antiplagApi.getCheck(taskId);
+
+      if (task.status === 'queued') {
+        bar.style.width = '30%';
+        percent.textContent = '30%';
+        text.textContent = 'Задача в очереди на проверку...';
+        return;
+      }
+
+      if (task.status === 'running') {
+        bar.style.width = '65%';
+        percent.textContent = '65%';
+        text.textContent = 'Алгоритмы и AI-сервис анализируют код...';
+        return;
+      }
+
+      if (task.status === 'failed') {
+        clearInterval(timer);
+        bar.style.width = '0%';
+        percent.textContent = '0%';
+        text.textContent = task.error_message || 'Проверка завершилась с ошибкой.';
+        return;
+      }
+
+      if (task.status === 'done') {
+        clearInterval(timer);
+        bar.style.width = '100%';
+        percent.textContent = '100%';
+        text.textContent = 'Отчет готов.';
+
+        const report = await window.antiplagApi.getReport(taskId);
+        const originality = Math.round((report.report.originality_score ?? 0) * 100);
+        setTimeout(() => showReport(originality, task.title, report.report), 300);
+      }
+    } catch (error) {
+      clearInterval(timer);
+      text.textContent = `Не удалось получить статус: ${error.message}`;
+    }
+  }, 2000);
+}
 
 function runCheckAnimation() {
   const bar = document.getElementById('scanProgress');
@@ -108,8 +191,11 @@ function showReport(score, title = 'Лабораторная работа №4')
   document.getElementById('reportScore').textContent = `${score}%`;
   document.getElementById('reportRing').style.setProperty('--progress', score);
   document.getElementById('originalMetric').textContent = `${score}%`;
-  document.getElementById('matchMetric').textContent = `${100 - score}%`;
-  document.getElementById('sourceMetric').textContent = score < 70 ? '8' : score < 85 ? '5' : '3';
+  const plagiarismPercent = arguments[2] ? Math.round((arguments[2].plagiarism_score ?? 0) * 100) : 100 - score;
+  const matchesCount = arguments[2] ? (arguments[2].matches || []).length : score < 70 ? 8 : score < 85 ? 5 : 3;
+  document.getElementById('matchMetric').textContent = `${plagiarismPercent}%`;
+  document.getElementById('sourceMetric').textContent = String(matchesCount);
+  renderReportMatches(arguments[2]);
 
   const alert = document.getElementById('reportAlert');
   if (score < 70) {
@@ -124,6 +210,34 @@ function showReport(score, title = 'Лабораторная работа №4')
     alert.querySelector('p').textContent = 'Уровень оригинальности соответствует требованиям дисциплины.';
   }
   openModal(reportModal);
+}
+
+function renderReportMatches(report) {
+  const list = document.querySelector('.match-list');
+  if (!list || !report) return;
+
+  const matches = report.matches || [];
+  if (!matches.length) {
+    list.innerHTML = '<div><span class="source-number">00</span><div><strong>No matches found</strong><small>Classic algorithms and AI did not find previous submissions to compare.</small></div><b>0%</b></div>';
+    return;
+  }
+
+  list.innerHTML = matches.map((match, index) => {
+    const combined = Math.round((match.combined_score ?? 0) * 100);
+    const classic = Math.round((match.classic_score ?? 0) * 100);
+    const ai = Math.round((match.ai_score ?? 0) * 100);
+    const number = String(index + 1).padStart(2, '0');
+    return `
+      <div>
+        <span class="source-number">${number}</span>
+        <div>
+          <strong>${match.title || match.filename || 'Previous submission'}</strong>
+          <small>Classic ${classic}% · AI ${ai}% · ${match.filename || ''}</small>
+        </div>
+        <b>${combined}%</b>
+      </div>
+    `;
+  }).join('');
 }
 
 document.querySelectorAll('[data-report]').forEach((button) => button.addEventListener('click', () => showReport(Number(button.dataset.report))));

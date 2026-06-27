@@ -1,1 +1,8 @@
 .clangd
+__pycache__/
+*.py[cod]
+
+back/data/
+storage/
+
+back/algos/build/

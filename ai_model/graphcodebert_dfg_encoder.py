@@ -15,9 +15,10 @@ GraphCodeBERT + DFG_cpp encoder.
 """
 
 import sys, os
-sys.stdout.reconfigure(encoding="utf-8")
-os.environ["HF_HOME"] = "Q:\\hf_cache"
-os.environ["TRANSFORMERS_OFFLINE"] = "1"
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+os.environ.setdefault("HF_HOME", "Q:\\hf_cache")
+os.environ.setdefault("TRANSFORMERS_OFFLINE", "1")
 
 import numpy as np
 import torch
