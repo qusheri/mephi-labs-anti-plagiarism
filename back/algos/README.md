@@ -1,7 +1,6 @@
 # antiplag algorithms
 
 This directory contains the first C++ algorithm layer for the anti-plagiarism backend.
-It intentionally does not include API, workers, queues, storage, or deployment code.
 
 ## Implemented detectors
 
