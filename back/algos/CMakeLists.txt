@@ -21,4 +21,9 @@ if(ANTIPLAG_ALGOS_BUILD_TESTS)
         tests/algos_test.cpp
     )
     target_link_libraries(antiplag_algos_tests PRIVATE antiplag_algos)
+
+    add_executable(evaluate_dataset
+        tools/evaluate_dataset.cpp
+    )
+    target_link_libraries(evaluate_dataset PRIVATE antiplag_algos)
 endif()

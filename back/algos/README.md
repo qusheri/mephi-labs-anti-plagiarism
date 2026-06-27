@@ -1,7 +1,6 @@
 # antiplag algorithms
 
 This directory contains the first C++ algorithm layer for the anti-plagiarism backend.
-It intentionally does not include API, workers, queues, storage, or deployment code.
 
 ## Implemented detectors
 
@@ -26,5 +25,26 @@ The attached project note describes a cascade from token methods to AST and then
 cd algos
 make test
 ```
+
+## Dataset evaluation
+
+`tools/evaluate_dataset.cpp` evaluates all implemented classical scores on the
+POJ-style CSV files from `test_data/`.
+
+```sh
+cd back/algos
+make dataset
+```
+
+You can also pass a custom dataset directory:
+
+```sh
+./build/evaluate_dataset ../../test_data
+```
+
+Expected dataset files:
+
+- `programs.csv`: `id,label,code`, where `label` is the problem class.
+- `pairs.csv`: `id_a,id_b,label`, where `label` is `1` for clone and `0` for non-clone.
 
 The code uses only the C++17 standard library.
